@@ -1,7 +1,7 @@
 import { push } from "connected-react-router";
-import { fork ,take, put,call,takeLatest,takeEvery} from "redux-saga/effects";
+import { fork ,take, put,call,takeLatest} from "redux-saga/effects";
 import userapi from "../../api/userapi";
-import { login,loginSuccess,loginFalied,loguot, loginWtoken ,getdatabookforuser,getdatabookforuserSuccess} from "./Loginslice";
+import { login,loginSuccess,loguot, loginWtoken ,getdatabookforuser,getdatabookforuserSuccess} from "./Loginslice";
 
 function* setlocal(token){
     

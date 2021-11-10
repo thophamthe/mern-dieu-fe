@@ -1,7 +1,5 @@
 
 import { Box, makeStyles,Typography} from '@material-ui/core';
-import { formatIMG } from '../../utils/formatIMG';
-import { Link} from 'react-router-dom';
 import { Itembook } from './Itembook';
 const useStyles = makeStyles((theme) => ({
   root:{

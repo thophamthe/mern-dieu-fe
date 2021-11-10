@@ -1,9 +1,7 @@
 import { Box, Button, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import { createRef} from 'react';
 import { useDispatch } from 'react-redux';
 import { login} from './Loginslice';
@@ -12,7 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useEffect,useState} from 'react';
+import {useState} from 'react';
 import userapi from '../../api/userapi';
 const useStyle = makeStyles((theme)=>({
     root:{
