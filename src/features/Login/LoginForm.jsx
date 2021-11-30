@@ -1,7 +1,9 @@
 import { Box, Button, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
 
 import React from 'react';
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import { createRef} from 'react';
 import { useDispatch } from 'react-redux';
 import { login} from './Loginslice';
@@ -24,13 +26,14 @@ const useStyle = makeStyles((theme)=>({
         fontSize:theme.spacing(3)
     },
     forminput:{
-        marginBottom:theme.spacing(2),
+        marginTop:theme.spacing(1),
         width:theme.spacing(50),
     },
     form:{
         padding:theme.spacing(3),
         display:'flex',
         justifyContent:'center',
+        alignItems:"center",
         flexFlow:'column nowrap',
         borderRadius:theme.spacing(2)
     },
@@ -57,21 +60,52 @@ const useStyle = makeStyles((theme)=>({
         marginBottom:theme.spacing(2),
         fontSize:theme.spacing(3)
     },
+    texterror:{
+        color:"red",
+        margin:"2px 0px",
+        fontSize:"12px",
+        paddingLeft:theme.spacing(1)
+    },
+    styleinputsubmit:{
+        marginTop:theme.spacing(1),
+        width:"100%",
+
+    }
 }))
+const schema = yup.object().shape({
+    username: yup
+      .string()
+      .required("Vui lòng nhập username")
+      .max(50, "username tối đa 50 ký tự"),
+    password: yup
+      .string()
+      .required("Vui lòng nhập mật khẩu")
+      .min(4, "mật khẩu tối thiểu ký tự")
+  });
  export function LoginForm(props){
      const classes = useStyle();
      let username = createRef(null);
      let password= createRef(null)
      const dispatch= useDispatch()
-     const handlesubmit=()=>{
+     const onLoginSubmit=(data)=>{
          const user= {
-             username: username.current.value,
-             password: password.current.value
+             username: data.username,
+             password: data.password
          }
-       dispatch(login(user))
+         if(user.username, user.password){
+             console.log(user)
+            dispatch(login(user))
+         }
+      
+       
      }
      const [open, setOpen] = useState(false);
-
+     const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors }
+      } = useForm({ resolver: yupResolver(schema)});
     const handleOpen = () => {
       setOpen(true);
     };
@@ -86,7 +120,7 @@ const useStyle = makeStyles((theme)=>({
     let gmail = React.createRef(null);
     let phone = React.createRef(null);
     let urlimg = React.createRef(null);
-    const handleSubmit=()=>{
+    const handleNewuser=()=>{
         
     var formData = new FormData()
     let newName= usernameSM.current.value+Date.now()+".jpg"
@@ -114,15 +148,20 @@ const useStyle = makeStyles((theme)=>({
     return(
         <Box   className= {classes.root}>
            <Paper className={classes.form}  elevation={3}>
+               <form onSubmit={handleSubmit(onLoginSubmit)}>
                <Typography className={classes.title}>Đăng nhập</Typography>
                <Box>
-               <TextField className={classes.forminput} autoFocus inputRef={username} label="Tài khoản" variant="outlined" />
+               <TextField className={classes.forminput} autoFocus {...register("username")} label="Tài khoản" variant="outlined" />
                </Box>
+               {errors.username?<Typography className={classes.texterror}>{errors.username.message}</Typography>:<Typography></Typography>}
                <Box>
-               <TextField className={classes.forminput} type={'password'} inputRef={password} label="Mật khẩu" variant="outlined" />
+               <TextField className={classes.forminput} type={'password'} {...register("password")} label="Mật khẩu" variant="outlined" />
                </Box>
+              
+               {errors.password?<Typography className={classes.texterror}>{errors.password.message}</Typography>:<Typography></Typography>}
+               <Button className={classes.styleinputsubmit} variant="contained" color="primary" type="submit" onClick={onLoginSubmit}>login</Button>
+               </form>
                
-               <Button  variant="contained" color="primary" onClick={handlesubmit}>Login</Button>
                <Box className={classes.listlink}>
                      <Button  color="primary" onClick={handleOpen}>Bạn chưa có tài khoản</Button>
                     <Dialog open={open} onClose={handleClose}>
@@ -152,7 +191,7 @@ const useStyle = makeStyles((theme)=>({
                     </DialogContent>
                     <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit} >Hoàn thành</Button>
+                    <Button onClick={handleNewuser} >Hoàn thành</Button>
                     </DialogActions>
                 </Dialog>
                </Box>

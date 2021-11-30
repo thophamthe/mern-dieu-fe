@@ -120,8 +120,8 @@ const useStyle= makeStyles((theme)=>({
                    
                     align="center"
                 >
-                    <MenuItem className={classes.menuitem} fullwidth onClick={handleClose}><Link style={{textDecoration:'none',color:'black'}}  to="/account">Tài khoản</Link></MenuItem>
-                    <MenuItem className={classes.menuitem} fullwidth onClick={handlelogout}>Đăng xuất</MenuItem>
+                    <MenuItem className={classes.menuitem}  onClick={handleClose}><Link style={{textDecoration:'none',color:'black'}}  to="/account">Tài khoản</Link></MenuItem>
+                    <MenuItem className={classes.menuitem}  onClick={handlelogout}>Đăng xuất</MenuItem>
                 </Menu>
                 </Box>
                 
