@@ -59,10 +59,13 @@ const authSlice= createSlice({
         },
         topup(state,action){
             state.currentuser.price=action.payload
-        }
+        },
+     afterbuy(state, action){
+         state.currentuser.price=state.currentuser.price- action.payload;
+     }
     }
 })
-export const {login,loginSuccess,loginFalied,loguot,loginWtoken,getdatabookforuser,getdatabookforuserSuccess,updateuser,topup}= authSlice.actions;
+export const {login,loginSuccess,loginFalied,loguot,loginWtoken,getdatabookforuser,getdatabookforuserSuccess,updateuser,topup,afterbuy}= authSlice.actions;
 
 export const selectLogging=(state)=>state.auth.logging
 export const selectLoading=(state)=>state.auth.loading

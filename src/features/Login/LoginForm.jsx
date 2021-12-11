@@ -84,8 +84,6 @@ const schema = yup.object().shape({
   });
  export function LoginForm(props){
      const classes = useStyle();
-     let username = createRef(null);
-     let password= createRef(null)
      const dispatch= useDispatch()
      const onLoginSubmit=(data)=>{
          const user= {
@@ -131,7 +129,7 @@ const schema = yup.object().shape({
     formData.append("gmail", gmail.current.value);
     formData.append("phonenumber", phone.current.value);
     formData.append("urlimg",urlimg.current.files[0],newName);
-    console.log(newName)
+
     userapi.newuser(formData).then((res)=>{
         if(res.success){
             alert(res.msg)

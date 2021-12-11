@@ -170,7 +170,7 @@ const useStyle =  makeStyles((theme)=>({
     
 }
 const handleSubmitPay=()=>{
-    console.log(pay.current.value)
+
     userapi.topup({money:pay.current.value}).then((res)=>{
         let newMoney= Number(user.price)+Number(pay.current.value)
         dispatch(topup(newMoney))

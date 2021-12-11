@@ -7,7 +7,7 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { formatIMG } from '../../utils/formatIMG';
 import bookapi from '../../api/bookapi';
-import { selectdatauser } from '../Login/Loginslice';
+import { selectdatauser,afterbuy } from '../Login/Loginslice';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -144,7 +144,7 @@ const useStyles= makeStyles((theme)=>({
 
             }
             else{
-                handleOpenBuy();
+                handleOpenBuy(); 
             }
 
         })
@@ -176,7 +176,8 @@ const useStyles= makeStyles((theme)=>({
           bookapi.buybook(databook.idbook).then(res =>{
               if(res.result){
                 handleClose();
-               
+               // buy book trừ tiền
+               dispatch(afterbuy(databook.pricebook))
                history.push(`/readbook/${databook.idbook}?chapter=1`)
                //bug k truyền query được, dù search rồi
               }else{
