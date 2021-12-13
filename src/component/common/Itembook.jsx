@@ -22,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
       border:'1px soild red'
     },
    '& img':{
-     max-width: "100%",
-     height: "auto",
+     
    }
   },
   
