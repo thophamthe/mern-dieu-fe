@@ -1,6 +1,6 @@
 import axios from "axios"
 const axiosClient= axios.create({
-    baseURL:"http://mern-dieu-be.herokuapp.com/api",
+    baseURL:"https://mern-dieu-be-production.up.railway.app//api",
     headers:{
         "Content-type": "application/json; charset=UTF-8",
         "token": localStorage.getItem('token')
