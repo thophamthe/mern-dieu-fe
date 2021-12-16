@@ -7,9 +7,10 @@ export async function  checkTimeOut(){
     try{
         await jwt.verify(localStorage.getItem("token"),key,(err,doc)=>{
       
-            console.log(process.env.ACCESS_TOKEN)
+          //  console.log(process.env.ACCESS_TOKEN)
               if(err) throw err
-              return doc.exp *1000 >  Date.now()
+              let time = doc.exp *1000 -  Date.now()
+              return time
           })
     }
     catch (err){

@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import bookapi from '../../api/bookapi';
-
+import { history } from '../../utils';
 const useStyle = makeStyles((theme)=>({
     toggleButton:{
         margin:"2rem 0"
@@ -215,6 +215,7 @@ const HandleChangeValueNamebook=(e)=>{
             }
         }
        bookapi.writechap(datarequest)
+       history.push("/bookdetail/"+idbook)
     }
     return(
         <Box>

@@ -13,7 +13,7 @@ function* setlocal(token,refreshtoken){
 function* handleLogin(payload){
    const datares= yield userapi.login(payload)
     if(datares.user!=null){
-        console.log(datares)
+        
         yield put(loginSuccess(datares.user))
         yield call(setlocal,datares.token,datares.refreshtoken)
         yield put(push('/book')) 
@@ -44,13 +44,26 @@ function* watchlogin(){
        
     }
     else{
-        const result=yield userapi.loginWtoken()
+        if(checkTimeOut()>1000){
+            const result=yield userapi.loginWtoken()
             yield put(loginWtoken(result))
+        }else{
+            let res= yield userapi.newtoken();
+            if(res){
+              yield localStorage.setItem('token', res.token)
+              yield localStorage.setItem('refreshtoken', res.refreshtoken)
+              const result=yield userapi.loginWtoken()
+              yield put(loginWtoken(result))
+       
+            }
+        }
+        
         
     }
     
    
 }
+
 function* watchlogout(){
     yield take(loguot)
     yield fork(handleLoguot)

@@ -2,7 +2,7 @@ import axios from "axios"
 import { checkTimeOut } from "../utils/checkToken";
 import userapi from "./userapi";
 const axiosClient= axios.create({
-    baseURL:"https://mern-dieu-be-production.up.railway.app/api",
+    baseURL:"http://localhost:4000/api",// https://mern-dieu-be-production.up.railway.app/api
     headers:{
         "Content-type": "application/json; charset=UTF-8",
         "token": localStorage.getItem('token'),
@@ -15,6 +15,7 @@ const axiosClient= axios.create({
 axiosClient.interceptors.request.use( async function (config) {
     // Do something before request is sent
     if(checkTimeOut()< 1000){
+      console.log(checkTimeOut())
       let res= await userapi.newtoken();
       if(res){
         await localStorage.setItem('token', res.token)
