@@ -18,6 +18,7 @@ axiosClient.interceptors.request.use( async function (config) {
       console.log(checkTimeOut())
       let res= await userapi.newtoken();
       if(res){
+          console.log("đã check token")
         await localStorage.setItem('token', res.token)
         await localStorage.setItem('refreshtoken', res.refreshtoken)
  
