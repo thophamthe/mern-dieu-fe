@@ -27,7 +27,11 @@ const userapi={
         const url='/pay/topup';
         
         return axiosClient.post(url,data);
+    },
+    newtoken(){
+        const url='/auth/newtoken';
+        
+        return axiosClient.get(url);
     }
-    
 }
 export default userapi;
