@@ -44,22 +44,8 @@ function* watchlogin(){
        
     }
     else{
-        if(checkTimeOut()>10000){
-            const result=yield userapi.loginWtoken()
+        const result=yield userapi.loginWtoken()
             yield put(loginWtoken(result))
-        }else{
-            if(localStorage.getItem("refreshtoken")){
-                let res= yield userapi.newtoken();
-                if(res){
-                    yield localStorage.setItem('token', res.token)
-                    yield localStorage.setItem('refreshtoken', res.refreshtoken)
-                    yield put(push('/book'))
-                }
-            }else{
-                yield put(push('/login'))
-            }
-            
-        }
         
     }
     
