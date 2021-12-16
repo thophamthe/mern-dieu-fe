@@ -2,18 +2,20 @@
 import { push } from "connected-react-router";
 import { fork ,take, put,call,takeLatest} from "redux-saga/effects";
 import userapi from "../../api/userapi";
+import { checkTimeOut } from "../../utils/checkToken";
 import { login,loginSuccess,loguot, loginWtoken ,getdatabookforuser,getdatabookforuserSuccess} from "./Loginslice";
 
-function* setlocal(token){
+function* setlocal(token,refreshtoken){
     
     yield localStorage.setItem('token',token)
+    yield localStorage.setItem('refreshtoken',refreshtoken)
 }
 function* handleLogin(payload){
    const datares= yield userapi.login(payload)
-   console.log(payload)
     if(datares.user!=null){
+        console.log(datares)
         yield put(loginSuccess(datares.user))
-        yield call(setlocal,datares.token)
+        yield call(setlocal,datares.token,datares.refreshtoken)
         yield put(push('/book')) 
     }
     else{
@@ -28,6 +30,7 @@ function* logintoken(){
 }
 function* removelocal(){
     yield localStorage.removeItem('token')
+    yield localStorage.removeItem('refreshtoken')
 }
 function* handleLoguot(){
 
@@ -41,8 +44,23 @@ function* watchlogin(){
        
     }
     else{
-        const result=yield userapi.loginWtoken()
-        yield put(loginWtoken(result))
+        if(checkTimeOut()>10000){
+            const result=yield userapi.loginWtoken()
+            yield put(loginWtoken(result))
+        }else{
+            if(localStorage.getItem("refreshtoken")){
+                let res= yield userapi.newtoken();
+                if(res){
+                    yield localStorage.setItem('token', res.token)
+                    yield localStorage.setItem('refreshtoken', res.refreshtoken)
+                    yield put(push('/book'))
+                }
+            }else{
+                yield put(push('/login'))
+            }
+            
+        }
+        
     }
     
    
