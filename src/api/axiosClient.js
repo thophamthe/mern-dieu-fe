@@ -2,7 +2,7 @@ import axios from "axios"
 import { checkTimeOut } from "../utils/checkToken";
 import userapi from "./userapi";
 const axiosClient= axios.create({
-    baseURL:"http://localhost:4000/api",// https://mern-dieu-be-production.up.railway.app/api
+    baseURL:"https://mern-dieu-be-production.up.railway.app/api",// https://mern-dieu-be-production.up.railway.app/api
     headers:{
         "Content-type": "application/json; charset=UTF-8",
         "token": localStorage.getItem('token'),
