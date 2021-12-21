@@ -1,8 +1,8 @@
 export function formatIMG(url){
     if(url){
-        return "https://mern-dieu-be-production.up.railway.app/"+url ;  //https://mern-dieu-be-production.up.railway.app/
+        return "https://mern-upload-tho.s3.ap-southeast-1.amazonaws.com/"+url ;  //https://mern-upload-tho.s3.ap-southeast-1.amazonaws.com/
     }else{
-        return "https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png"
+        return 
     }
     
 }

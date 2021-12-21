@@ -4,7 +4,7 @@ import { getdatabook, selectdatabook, selectLoading } from './bookdetailSlice';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useCallback } from 'react';
 import { formatIMG } from '../../utils/formatIMG';
 import bookapi from '../../api/bookapi';
 import { selectdatauser,afterbuy } from '../Login/Loginslice';

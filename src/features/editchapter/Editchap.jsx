@@ -61,7 +61,7 @@ const useStyle = makeStyles((theme)=>({
           dispatch(resetdata())
       }
     
-},[dispatch,value])
+},[value])
 
 const listChapter = useSelector(selectListchapter)
 const dataChapter = useSelector(selectDataChapter)
@@ -193,7 +193,7 @@ const HandleChangeValueNamebook=(e)=>{
             )
         }
     }
-    const handleUpdate=()=>{
+    const handleUpdate=async()=>{
         let datares={
             idbook:idbook,
             data:{
@@ -203,7 +203,8 @@ const HandleChangeValueNamebook=(e)=>{
             }
         }
        
-       bookapi.updatechapter(datares)
+       await bookapi.updatechapter(datares)
+       history.push("/bookdetail/"+idbook)
     }
     const handleAdd=()=>{
         let datarequest={
@@ -227,7 +228,29 @@ const HandleChangeValueNamebook=(e)=>{
             </Box>
              
             <Box className={classes.content}>
-                {renderDataChapter}
+            <Typography variant='subtitle1'> Date Update: {dataChapter.dateupdated} </Typography>
+                    
+                    <TextareaAutosize
+                        
+                        maxRows={3}
+                        aria-label="maximum height"
+                        placeholder="Tên chương"
+                        defaultValue={heading}
+                        style={{ width: "100%",padding:10,fontSize:"1rem", fontFamily:"Roboto"}}
+                        onChange={HandleChangeValueNamebook}
+                    />
+                    <TextareaAutosize
+                        
+                        maxRows={18}
+                        aria-label="maximum height"
+                        placeholder="Nội dung"
+                        defaultValue={content}
+                        style={{ width: "100%",padding:10,fontSize:"1rem", fontFamily:"Roboto"}}
+                        onChange={HandleChangeValueContent}
+                    />
+                    <Box className={classes.btn}>
+                        {renderButton(content)}
+                    </Box>
             </Box>
         </Box>
     )

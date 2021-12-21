@@ -1,6 +1,6 @@
 import { Box, Button, makeStyles, Typography ,Modal, LinearProgress} from '@material-ui/core';
 import {  useDispatch, useSelector } from 'react-redux';
-import { useEffect,useState} from 'react';
+import { useEffect,useState,useCallback} from 'react';
 import { getdatabookforuser, selectdatauser, selectlistbook,selectLoading,updateuser,topup } from '../Login/Loginslice';
 import PersonIcon from '@mui/icons-material/Person';
 import React from 'react';
@@ -112,7 +112,8 @@ const useStyle =  makeStyles((theme)=>({
   };
 
   const handleCloseEP = () => {
-    setOpen(false);
+      setOpen(false);
+   
   };
   const [openEB, setOpenEB] = useState(false);
 
@@ -136,7 +137,7 @@ const useStyle =  makeStyles((theme)=>({
   let from = React.createRef(null);
   let gmail = React.createRef(null);
   let phone = React.createRef(null);
-  let urlimg = React.createRef(null);
+  let urlimg = useState(null);
   let pay = React.createRef(null);
   const HandleUpdate=()=>{
       // đơn giản là update nên k cần saga gọi luôn api
@@ -158,6 +159,7 @@ const useStyle =  makeStyles((theme)=>({
         phonenumber: phone.current.value,
         urlimg: `avata/${newName}`
       }
+      console.log(dataupdateSilce.urlimg)
     userapi.updateuer(formData).then((res)=>{
         
         
@@ -219,13 +221,19 @@ const handleSubmitPay=()=>{
           )
       }
   }
+  const shopImg=useCallback(
+      (url) => {
+         return  <img alt="img" src={formatIMG(url)} />
+      },
+      [user.urlimg]
+  )
   const showAccount=()=>{
       if(user,listbook){
           
           return (
             <Box className={classes.root} >
             <Box className={classes.avatar} >
-                <img alt="img" src={formatIMG(user.urlimg)} />
+               { shopImg(user.urlimg)}
             </Box>
           <Box className={classes.profile}>
               <Box className={classes.variable} >

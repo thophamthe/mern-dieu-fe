@@ -24,10 +24,7 @@ function* handleLogin(payload){
         
     }
 }
-function* logintoken(){
-    const result=yield userapi.loginWtoken()
-            yield put(loginWtoken(result))
-}
+
 function* removelocal(){
     yield localStorage.removeItem('token')
     yield localStorage.removeItem('refreshtoken')
@@ -44,19 +41,25 @@ function* watchlogin(){
        
     }
     else{
-        if(checkTimeOut()>1000){
+        const result=yield userapi.loginWtoken()
+            yield put(loginWtoken(result))
+        /*
+       yield console.log(checkTimeOut())
+        if(yield checkTimeOut()>1000){
             const result=yield userapi.loginWtoken()
             yield put(loginWtoken(result))
         }else{
             let res= yield userapi.newtoken();
+            console.log(res)
             if(res){
               yield localStorage.setItem('token', res.token)
               yield localStorage.setItem('refreshtoken', res.refreshtoken)
               const result=yield userapi.loginWtoken()
+              console.log(result)
               yield put(loginWtoken(result))
        
             }
-        }
+        } */
         
         
     }
